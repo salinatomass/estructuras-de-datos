@@ -5,9 +5,11 @@ class MyArray {
     this.length = 0;
     this.data = {};
   }
+
   get(index) {
     return this.data[index];
   }
+
   push(item) {
     this.data[this.length] = item;
     this.length++;
@@ -19,6 +21,22 @@ class MyArray {
     this.length--;
     return lastItem;
   }
+
+  unshift(item) {
+    for (let i = this.length; i > 0; i--) {
+      this.data[i] = this.data[i - 1];
+    }
+
+    this.data[0] = item;
+    this.length++;
+    return item;
+  }
+  shift() {
+    const firstItem = this.data[0];
+    this.shiftIndex(0);
+    return firstItem;
+  }
+
   delete(index) {
     const item = this.data[index];
     this.shiftIndex(index);
@@ -27,11 +45,17 @@ class MyArray {
   }
   shiftIndex(index) {
     for (let i = index; i < this.length - 1; i++) {
-      this.data[i] = this.data[i + 1];
+      this.data[i] = this.data[i + 1]; // rewrite
     }
-    delete this.data[this.length - 1];
+    delete this.data[this.length - 1]; // delete the last item
     this.length--;
   }
 }
 
 const myArray = new MyArray();
+
+myArray.push("Tomas");
+myArray.push("Franco");
+myArray.push("Sofia");
+
+console.log(myArray.data);
